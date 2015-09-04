@@ -1,0 +1,124 @@
+
+
+课程学习建议：
+1.结合书本，知识点更加系统全面
+对应的书本：hadoop技术详解、hadoop权威指南
+2.实践经验很重要，边听课边实践。
+
+一.
+Google大数据技术：
+1.MapReduce
+2.BigTable
+3.GFS
+革命性变化
+1.成本降低，能用PC机，不用大型机和高端存储
+2.软件容错硬件故障视为常态，通过软件保证可靠性
+3.简化并行分布式计算，无须控制节点同步和数据交换
+Hadoop：模仿Google大数据技术的开源技术
+
+二.
+
+Hadoop是一个开源的分布式存储+分布式计算平台
+
+包括两个核心组成：
+HDFS:分布式文件系统，存储海量的数据
+MapReduce:并行处理框架，实现任务分解和调度
+可以用来搭建大型数据仓库，PB级数据的存储、处理、分析、统计等业务。
+用于搜索引擎、商业智能、日志分析以及数据挖掘
+
+优势：
+－ 高扩展
+－ 低成本
+－ 成熟的生态圈（因为开源） hive Hbase
+
+Hadoop人才需求：Hadoop的开发与运维
+
+三.
+
+Hive（蜜蜂） Hadoop的开源工具
+用SQL语句----hive----转化成-----Hadoop任务执行
+HIVE相当于一种牵引工具，可以利用它将SQL语句转化成Hadoop任务
+
+HBase 存储结构化数据的分布式数据库
+HBase和关系数据库的区别：放弃事务特性，追求高扩展。
+HBase和HDFS区别： 提供数据的随机读写和实时访问，实现对表数据的读写功能。
+
+ZooKeeper(动物管理员):监控Hadoop集群里的每个节点的状态，管理整个集群的配置，维护数据节点之间的一致性...
+
+hadoop版本的选择，最新2.6
+2.x和1.x差别比较大
+1.2稳定易上手易理解，2.x不稳定
+
+
+四.
+
+2.安装JDK
+
+需要更新软件源
+sudo apt-get update 
+安装JDK
+apt-get install openjdk-7-jdk
+修改环境变量
+
+vim /etc/profile
+
+增加:
+
+1.export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+2.export JRE_HOME=$JAVA_HOME/jre
+3.export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+4.export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+
+注解：
+1.Linux下用冒号 : 分割路径
+2.$PATH / $JAVA_HOME / $JRE_HOME 是用来引用原来环境变量的值，在设置环境变量时不能把原来的值给覆盖掉
+3.$CLASSPATH 中 当前目录 “.”不能丢 ？
+4.export 是把这4个变量导出为全局变量
+
+让配置生效
+
+$ source /etc/profile
+
+
+3.安装Hadoop
+
+$ wget http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-1.2.1/hadoop-1.2.1.tar.gz
+
+
+换目录
+
+mv hadoop-1.2.1.tar.gz /opt/
+cd /opt/
+
+解压
+
+tar -zxvf hadoop-1.2.1.tar.gz
+
+配置四个文件
+
+cd hadoop-1.2.1/conf/
+
+hadoop-env.sh、core-site.xml、hdfs-site.xml、mapred-site.xml四个文件
+
+设置 /etc/profile 环境变量 HADOOP_HOME 和bin
+source /etc/profile
+
+修改一下主机名 vim /etc/hosts
+
+127.0.0.1 huang (你在hadoop中配置的主机名)
+
+
+格式化操作
+
+hadoop namenode -format
+
+启动 
+
+start-all.sh
+
+jps 查看进程
+
+查看hadoop文件夹
+
+hadoop fs -ls /
+
